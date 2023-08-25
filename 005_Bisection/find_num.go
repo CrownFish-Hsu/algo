@@ -10,7 +10,6 @@ import (
 
 func main() {
 	rn := rand.New(rand.NewSource(time.Now().UnixNano()))
-	rn.Float32()
 
 	N := 10
 	V := 10
