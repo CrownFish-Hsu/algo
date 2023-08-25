@@ -10,7 +10,6 @@ import (
 
 func main() {
 	rn := rand.New(rand.NewSource(time.Now().UnixNano()))
-
 	N := 10
 	V := 10
 	rounds := 100
