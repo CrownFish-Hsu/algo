@@ -24,6 +24,7 @@ func (this *MyCircularDeque) InsertFront(value int) bool {
 		return false
 	} else {
 		if this.IsEmpty() {
+			//需要强制将l,r移至第0位,删除的时候会移到limit-1位
 			this.l = 0
 			this.r = 0
 			this.queue[0] = value
