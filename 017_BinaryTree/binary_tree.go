@@ -63,3 +63,42 @@ func inorderTraversal(root *TreeNode) []int {
 
 	return treeNodeArr
 }
+
+//https://leetcode.cn/problems/binary-tree-postorder-traversal/description/
+/**
+ * 后序遍历 左-右-中
+ * 0. 2个栈实现
+ * 1. 可以参考先序遍历: 当前结点先入s1栈，如果s1非空，弹出结点入s2栈
+ * 2. s1栈依次入当前节点左，右结点 循环1步骤
+ * 3. 使得入s2栈的节点顺序为中-右-左
+ * 4. 依次弹出s2栈节点 即为左-右-中
+ */
+func postorderTraversal(root *TreeNode) []int {
+	stack1 := make([]*TreeNode, 0)
+	stack2 := make([]*TreeNode, 0)
+	treeNodeArr := make([]int, 0)
+
+	if root != nil {
+		stack1 = append(stack1, root)
+		for len(stack1) > 0 {
+			node := stack1[len(stack1)-1]
+			stack1 = stack1[:len(stack1)-1]
+			stack2 = append(stack2, node)
+			if node.Left != nil {
+				stack1 = append(stack1, node.Left)
+			}
+
+			if node.Right != nil {
+				stack1 = append(stack1, node.Right)
+			}
+		}
+	}
+
+	if len(stack2) > 0 {
+		for idx := len(stack2) - 1; idx >= 0; idx-- {
+			treeNodeArr = append(treeNodeArr, stack2[idx].Val)
+		}
+	}
+
+	return treeNodeArr
+}
