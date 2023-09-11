@@ -73,7 +73,7 @@ func inorderTraversal(root *TreeNode) []int {
  * 3. 使得入s2栈的节点顺序为中-右-左
  * 4. 依次弹出s2栈节点 即为左-右-中
  */
-func postorderTraversal(root *TreeNode) []int {
+func postorderTraversalWithTwoStack(root *TreeNode) []int {
 	stack1 := make([]*TreeNode, 0)
 	stack2 := make([]*TreeNode, 0)
 	treeNodeArr := make([]int, 0)
@@ -97,6 +97,32 @@ func postorderTraversal(root *TreeNode) []int {
 	if len(stack2) > 0 {
 		for idx := len(stack2) - 1; idx >= 0; idx-- {
 			treeNodeArr = append(treeNodeArr, stack2[idx].Val)
+		}
+	}
+
+	return treeNodeArr
+}
+
+func postorderTraversalWithOneStack(root *TreeNode) []int {
+	treeNodeArr := make([]int, 0)
+	stack := make([]*TreeNode, 0)
+	if root != nil {
+		//如果没有打印，root一直是头结点
+		//一旦打印过，则变为最近一次打印过的结点
+		stack = append(stack, root)
+		for len(stack) > 0 {
+			cur := stack[len(stack)-1]
+			if cur.Left != nil && cur.Left != root && cur.Right != root {
+				//有左子树 且没处理过
+				stack = append(stack, cur.Left)
+			} else if cur.Right != nil && cur.Right != root {
+				//有右子树 且没处理过
+				stack = append(stack, cur.Right)
+			} else {
+				treeNodeArr = append(treeNodeArr, cur.Val)
+				root = stack[len(stack)-1]
+				stack = stack[:len(stack)-1]
+			}
 		}
 	}
 
