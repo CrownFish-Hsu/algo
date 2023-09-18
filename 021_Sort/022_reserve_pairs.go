@@ -32,6 +32,7 @@ func mergeReserve(nums []int, l int, r int, mid int) int {
 			rs++
 		}
 
+		//当ls滑动，统计rs的个数，就是符合的答案
 		pairNum += rs - (mid + 1)
 	}
 
