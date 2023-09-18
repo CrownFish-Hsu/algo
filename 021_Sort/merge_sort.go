@@ -47,7 +47,7 @@ func mergeSort2(nums []int) {
 				break
 			}
 
-			if l+2*step > n {
+			if l+2*step-1 > n-1 {
 				r = n - 1
 			} else {
 				r = l + 2*step - 1
